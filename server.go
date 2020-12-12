@@ -5,6 +5,6 @@ import (
 )
 
 func main() {
-	e := echo.Now()
-	e.Logger.Fatal(e.start(":8080"))
+	e := echo.New()
+	e.Logger.Fatal(e.Start(":8080"))
 }

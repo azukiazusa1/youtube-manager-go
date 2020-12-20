@@ -20,7 +20,7 @@ func DatabaseService() echo.MiddlewareFunc {
 
 			d.DB.LogMode(true)
 
-			s.Set("dbs", &d)
+			c.Set("dbs", &d)
 
 			if err := next(c); err != nil {
 				return err

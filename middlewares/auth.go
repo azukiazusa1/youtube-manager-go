@@ -2,6 +2,7 @@ package middlewares
 
 import (
 	"context"
+	"fmt"
 	"strings"
 
 	"firebase.google.com/go/auth"
@@ -17,13 +18,14 @@ func verifyFirebaseIDToken(ctx echo.Context, auth *auth.Client) (*auth.Token, er
 	return jwtToken, err
 }
 
-func firebaseGuard() echo.MiddlewareFunc {
+func FirebaseGuard() echo.MiddlewareFunc {
 	return func(next echo.HandlerFunc) echo.HandlerFunc {
 		return func(c echo.Context) error {
 			authClient := c.Get("firebase").(*auth.Client)
 			jwtToken, err := verifyFirebaseIDToken(c, authClient)
 
 			if err != nil {
+				fmt.Println(err)
 				return c.JSON(fasthttp.StatusUnauthorized, "Not Authenticated")
 			}
 
